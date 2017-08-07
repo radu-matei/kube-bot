@@ -12,3 +12,5 @@ spec:
       containers:
       - name: bot-service
         image: radumatei/bot-service
+        ports:
+            - containerPort: 3978
