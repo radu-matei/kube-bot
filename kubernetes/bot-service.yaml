@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: bot-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bot-service
+    spec:
+      containers:
+      - name: bot-service
+        image: radumatei/bot-service
+        ports:
+            - containerPort: 3978
