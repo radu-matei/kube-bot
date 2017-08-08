@@ -8,6 +8,9 @@ const connector = new builder.ChatConnector({
 
 const server = restify.createServer();
 server.post('/api/messages', connector.listen());
+server.get('/healthz', (request, response) => {
+    response.send(200);
+})
 
 server.listen(3978, () => console.log(`${server.name} listening to ${server.url}`));
 
