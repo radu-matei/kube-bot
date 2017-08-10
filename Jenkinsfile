@@ -8,12 +8,10 @@ podTemplate(label: 'mypod', containers: [
 
     node('mypod') {
 
-        stage('testing docker') {
+        stage('the bot image') {
             container('docker') {
-                stage('test') {
-                    sh 'docker info'
-                    sh 'docker ps'
-                }
+                sh 'pwd'
+                sh 'ls'
             }
         }
 
