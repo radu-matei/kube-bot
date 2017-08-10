@@ -12,8 +12,16 @@ podTemplate(label: 'mypod', containers: [
 
         stage('build the bot image') {
             container('docker') {
-                sh 'docker build -f bot/Dockerfile .'
-                sh 'docker images'
+
+            withCredentials([[$class : 'UsernamePasswordMultiBinding', 
+                              credentialsId: 'dockerhub',
+                              usernameVariable: 'DOCKER_HUB_USER', 
+                              passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+          
+                sh 'docker build -t ${DOCKER_HUB_USER}/bot-service:${BUILD_NUMBER} -f bot/Dockerfile .'
+                sh 'docker login -u ${env.DOCKER_HUB_USER} -p ${env.DOCKER_HUB_PASSWORD}'
+                ssh 'docker push {DOCKER_HUB_USER}/bot-service:${BUILD_NUMBER '
+                }
             }
         }
 
