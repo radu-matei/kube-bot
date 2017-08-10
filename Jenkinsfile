@@ -8,6 +8,8 @@ podTemplate(label: 'mypod', containers: [
 
     node('mypod') {
 
+        checkout scm
+
         stage('the bot image') {
             container('docker') {
                 sh 'pwd'
