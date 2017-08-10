@@ -12,7 +12,7 @@ podTemplate(label: 'mypod', containers: [
 
         stage('build the bot image') {
             container('docker') {
-                sh 'docker build -f bot/Dockerfile .'
+                sh 'docker build -t test/test -f bot/Dockerfile .'
             }
         }
 
