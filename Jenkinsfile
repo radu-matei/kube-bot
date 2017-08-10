@@ -10,10 +10,9 @@ podTemplate(label: 'mypod', containers: [
 
         checkout scm
 
-        stage('the bot image') {
+        stage('build the bot image') {
             container('docker') {
-                sh 'pwd'
-                sh 'ls'
+                sh 'docker build -f bot/Dockerfile .'
             }
         }
 
