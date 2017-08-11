@@ -1,5 +1,6 @@
 import * as restify from 'restify';
 import * as builder from 'botbuilder';
+import * as os from 'os';
 
 const connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
@@ -15,5 +16,5 @@ server.get('/healthz', (request, response) => {
 server.listen(3978, () => console.log(`${server.name} listening to ${server.url}`));
 
 var bot = new builder.UniversalBot(connector, (session: builder.Session) => {
-    session.send(`I think you said: ${session.message.text}`)
+    session.send(`I am ${os.hostname}. You said: ${session.message.text}`)
 });
