@@ -8,6 +8,7 @@ podTemplate(label: 'mypod', containers: [
 
     node('mypod') {
 
+        checkout scm
 
         stage('build the bot image') {
             container('docker') {
