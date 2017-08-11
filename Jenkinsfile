@@ -18,7 +18,7 @@ podTemplate(label: 'mypod', containers: [
                         usernameVariable: 'DOCKER_HUB_USER', 
                         passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
 
-                    sh "docker build -t ${env,DOCKER_HUB_USER}/bot-service:${env.BUILD_NUMBER} -f bot/Dockerfile . "
+                    sh "docker build -t ${env.DOCKER_HUB_USER}/bot-service:${env.BUILD_NUMBER} -f bot/Dockerfile . "
                     sh "docker login -u ${env.DOCKER_HUB_USER} -p ${env.DOCKER_HUB_PASSWORD} "
                     sh "docker push {env.DOCKER_HUB_USER}/bot-service:${env.BUILD_NUMBER} "
                 }
