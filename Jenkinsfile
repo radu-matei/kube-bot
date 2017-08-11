@@ -24,5 +24,11 @@ podTemplate(label: 'mypod', containers: [
                 }
             }
         }
+
+        stage('update kubernetes deployment for bot') {
+            container('kubectl') {
+                sh "kubectl set image deployment/bot-service bot-service=${DOCKER_HUB_USER}/bot-service:${BUILD_NUMBER} "
+            }
+        }
     }
 }
