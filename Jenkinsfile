@@ -10,7 +10,7 @@ podTemplate(label: 'mypod', containers: [
 
         checkout scm
 
-        stage('build the bot image') {
+        stage('build and push the bot image') {
             container('docker') {
 
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', 
@@ -20,7 +20,7 @@ podTemplate(label: 'mypod', containers: [
 
                     sh "docker build -t ${env.DOCKER_HUB_USER}/bot-service:${env.BUILD_NUMBER} -f bot/Dockerfile . "
                     sh "docker login -u ${env.DOCKER_HUB_USER} -p ${env.DOCKER_HUB_PASSWORD} "
-                    sh "docker push {env.DOCKER_HUB_USER}/bot-service:${env.BUILD_NUMBER} "
+                    sh "docker push ${env.DOCKER_HUB_USER}/bot-service:${env.BUILD_NUMBER} "
                 }
             }
         }
