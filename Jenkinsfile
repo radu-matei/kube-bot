@@ -27,7 +27,14 @@ podTemplate(label: 'mypod', containers: [
 
         stage('update kubernetes deployment for bot') {
             container('kubectl') {
-                sh "kubectl set image deployment/bot-service bot-service=${DOCKER_HUB_USER}/bot-service:${BUILD_NUMBER} "
+
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', 
+                        credentialsId: 'dockerhub',
+                        usernameVariable: 'DOCKER_HUB_USER',
+                        passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+
+                    sh "kubectl set image deployment/bot-service bot-service=${env.DOCKER_HUB_USER}/bot-service:${env.BUILD_NUMBER} "
+                }
             }
         }
     }
