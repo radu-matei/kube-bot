@@ -8,28 +8,20 @@ podTemplate(label: 'mypod', containers: [
 
     node('mypod') {
 
-        checkout scm
 
         stage('build the bot image') {
             container('docker') {
 
-            withCredentials([[$class : 'UsernamePasswordMultiBinding', 
-                              credentialsId: 'dockerhub',
-                              usernameVariable: 'DOCKER_HUB_USER', 
-                              passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
-          
-                sh 'docker build -t ${DOCKER_HUB_USER}/bot-service:${BUILD_NUMBER} -f bot/Dockerfile .'
-                sh 'docker login -u ${env.DOCKER_HUB_USER} -p ${env.DOCKER_HUB_PASSWORD}'
-                ssh 'docker push {DOCKER_HUB_USER}/bot-service:${BUILD_NUMBER '
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', 
+                        credentialsId: 'dockerhub',
+                        usernameVariable: 'DOCKER_HUB_USER', 
+                        passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+
+                    sh "docker build -t ${env,DOCKER_HUB_USER}/bot-service:${env.BUILD_NUMBER} -f bot/Dockerfile . "
+                    sh "docker login -u ${env.DOCKER_HUB_USER} -p ${env.DOCKER_HUB_PASSWORD} "
+                    sh "docker push {env.DOCKER_HUB_USER}/bot-service:${env.BUILD_NUMBER} "
                 }
             }
         }
-
-        stage('kubectl') {
-            container('kubectl') {
-                sh 'kubectl get nodes'
-            }
-        }
-
     }
 }
