@@ -16,5 +16,5 @@ server.get('/healthz', (request, response) => {
 server.listen(3978, () => console.log(`${server.name} listening to ${server.url}`));
 
 var bot = new builder.UniversalBot(connector, (session: builder.Session) => {
-    session.send(`I am ${os.hostname}. You said: ${session.message.text}`)
+    session.send(`Kubernetes is awesome! I am ${os.hostname}. You said: ${session.message.text}`)
 });
