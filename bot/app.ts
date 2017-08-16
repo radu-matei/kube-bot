@@ -22,10 +22,11 @@ var bot = new builder.UniversalBot(connector, (session: builder.Session) => {
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_URI);
 bot.recognizer(recognizer);
 
-bot.dialog('GetPods', function (session) {
-    session.endDialog('You are trying to get pods');
+bot.dialog('GetContainers', function (session) {
+    session.say('You are trying to get containers');
+    session.endDialog();
 }).triggerAction({
-    matches: 'GetPods'
+    matches: 'GetContainers'
 });
 
 bot.dialog('GetDeployments', function (session) {
