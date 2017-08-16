@@ -24,19 +24,15 @@ bot.recognizer(recognizer);
 
 bot.dialog('GetContainers', function (session) {
     session.say('You are trying to get containers.',
-        'You are trying to get containers.',
-        { inputHint: builder.InputHint.ignoringInput }
-    );
+        'You are trying to get containers.');
 
 }).triggerAction({
     matches: 'GetContainers'
 });
 
 bot.dialog('GetServices', function (session) {
-    session.say('You are trying to get containers.',
-        'You are trying to get containers.',
-        { inputHint: builder.InputHint.ignoringInput }
-    );
+    session.say('You are trying to get services.',
+        'You are trying to get services.');
 }).triggerAction({
     matches: 'GetServices'
 });
