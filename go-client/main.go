@@ -6,16 +6,18 @@ import (
 )
 
 func main() {
+	initializeClients()
+
 	http.HandleFunc("/get/pods", getPods)
 	http.HandleFunc("/get/deployments", getDeployments)
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":80", nil)
 }
 
 func getPods(writer http.ResponseWriter, request *http.Request) {
-	io.WriteString(writer, "Trying to get Kubernetes pods")
+	io.WriteString(writer, GetPods())
 }
 
 func getDeployments(writer http.ResponseWriter, request *http.Request) {
-	io.WriteString(writer, "Trying to get Kubernetes deployments")
+	io.WriteString(writer, GetDeployments())
 }
