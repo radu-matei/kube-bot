@@ -14,3 +14,19 @@ spec:
         image: radumatei/bot-service
         ports:
             - containerPort: 3978
+        env:
+        - name: LUIS_URI
+          valueFrom:
+            secretKeyRef:
+              name: luis-url
+              key: luis-url
+        - name: MICROSOFT_APP_ID
+          valueFrom:
+            secretKeyRef:
+              name: microsoft-app-values
+              key: microsoft-app-id
+        - name: MICROSOFT_APP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microsoft-app-values
+              key: microsoft-app-password
