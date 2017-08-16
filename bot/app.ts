@@ -18,3 +18,18 @@ server.listen(3978, () => console.log(`${server.name} listening to ${server.url}
 var bot = new builder.UniversalBot(connector, (session: builder.Session) => {
     session.send(`Kubernetes is awesome! I am ${os.hostname}. You said: ${session.message.text}`)
 });
+
+var recognizer = new builder.LuisRecognizer(process.env.LUIS_URI);
+bot.recognizer(recognizer);
+
+bot.dialog('GetPods', function (session) {
+    session.endDialog('You are trying to get pods');
+}).triggerAction({
+    matches: 'GetPods'
+});
+
+bot.dialog('GetDeployments', function (session) {
+    session.endDialog('You are trying to get deployments');
+}).triggerAction({
+    matches: 'GetDeployments'
+});
