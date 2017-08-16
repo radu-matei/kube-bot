@@ -23,14 +23,20 @@ var recognizer = new builder.LuisRecognizer(process.env.LUIS_URI);
 bot.recognizer(recognizer);
 
 bot.dialog('GetContainers', function (session) {
-    session.say('You are trying to get containers');
-    session.endDialog();
+    session.say('You are trying to get containers.',
+        'You are trying to get containers.',
+        { inputHint: builder.InputHint.ignoringInput }
+    );
+
 }).triggerAction({
     matches: 'GetContainers'
 });
 
-bot.dialog('GetDeployments', function (session) {
-    session.endDialog('You are trying to get deployments');
+bot.dialog('GetServices', function (session) {
+    session.say('You are trying to get containers.',
+        'You are trying to get containers.',
+        { inputHint: builder.InputHint.ignoringInput }
+    );
 }).triggerAction({
-    matches: 'GetDeployments'
+    matches: 'GetServices'
 });
