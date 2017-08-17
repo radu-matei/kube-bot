@@ -13,6 +13,8 @@ func main() {
 	http.HandleFunc("/get/namespaces", getNamespaces)
 	http.HandleFunc("/get/cluster", getClusterInformation)
 
+	http.HandleFunc("/create", createDeployment)
+
 	http.ListenAndServe(":80", nil)
 }
 
@@ -31,4 +33,8 @@ func getNamespaces(writer http.ResponseWriter, request *http.Request) {
 
 func getClusterInformation(writer http.ResponseWriter, request *http.Request) {
 	io.WriteString(writer, GetClusterInformation())
+}
+
+func createDeployment(writer http.ResponseWriter, request *http.Request) {
+	io.WriteString(writer, CreateDeployment())
 }
