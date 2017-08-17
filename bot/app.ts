@@ -41,7 +41,7 @@ bot.dialog('GetServices', function (session) {
 
 bot.dialog('GetClusterInfo', function (session) {
     var options = {
-        host: 'http://go-client',
+        host: 'go-client',
         port: 80,
         path: '/get/cluster'
     };
