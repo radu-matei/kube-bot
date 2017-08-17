@@ -1,6 +1,7 @@
 import * as restify from 'restify';
 import * as builder from 'botbuilder';
 import * as os from 'os';
+import * as http from 'http'
 
 const connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
@@ -35,4 +36,26 @@ bot.dialog('GetServices', function (session) {
         'You are trying to get services.');
 }).triggerAction({
     matches: 'GetServices'
+});
+
+
+bot.dialog('GetClusterInfo', function (session) {
+    var options = {
+        host: 'http://go-client',
+        port: 80,
+        path: '/get/cluster'
+    };
+
+    var body = ''
+    http.get(options, response => {
+        response.on('data', data => {
+            body += data
+        });
+        response.on('end', ()=> {
+            var clientResponse = JSON.parse(body);
+            session.say(clientResponse, clientResponse)     
+        })
+    })
+}).triggerAction({
+    matches: 'GetClusterInfo'
 });
