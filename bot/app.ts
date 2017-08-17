@@ -52,8 +52,7 @@ bot.dialog('GetClusterInfo', function (session) {
             body += data
         });
         response.on('end', ()=> {
-            var clientResponse = JSON.parse(body);
-            session.say(clientResponse, clientResponse)     
+            session.say(body, body)     
         })
     })
 }).triggerAction({
