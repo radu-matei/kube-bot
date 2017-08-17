@@ -10,6 +10,8 @@ func main() {
 
 	http.HandleFunc("/get/pods", getPods)
 	http.HandleFunc("/get/deployments", getDeployments)
+	http.HandleFunc("/get/namespaces", getNamespaces)
+	http.HandleFunc("/get/cluster", getClusterInformation)
 
 	http.ListenAndServe(":80", nil)
 }
@@ -20,4 +22,13 @@ func getPods(writer http.ResponseWriter, request *http.Request) {
 
 func getDeployments(writer http.ResponseWriter, request *http.Request) {
 	io.WriteString(writer, GetDeployments())
+}
+
+func getNamespaces(writer http.ResponseWriter, request *http.Request) {
+	ns, _ := GetNamespaces()
+	io.WriteString(writer, ns)
+}
+
+func getClusterInformation(writer http.ResponseWriter, request *http.Request) {
+	io.WriteString(writer, GetClusterInformation())
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
@@ -39,5 +40,66 @@ func GetPods() string {
 
 // GetDeployments returns the deployments from the cluster
 func GetDeployments() string {
+
 	return "Trying to get Kubernetes deployments!"
+}
+
+// GetNamespaces returns all namespaces in the cluster
+func GetNamespaces() (string, error) {
+	namespaces, err := clientSet.CoreV1().Namespaces().List(metav1.ListOptions{})
+	if err != nil {
+		return "Cannot get namespaces", err
+	}
+
+	var responseString = "Namespaces in cluster: "
+
+	for _, namespace := range namespaces.Items {
+		responseString += namespace.Name + ", "
+	}
+
+	return responseString, nil
+}
+
+// GetClusterInformation return generic information about the cluster
+func GetClusterInformation() string {
+
+	var responseString = "Here is some information about your cluster: "
+
+	namespaces, err := clientSet.CoreV1().Namespaces().List(metav1.ListOptions{})
+	if err != nil {
+		return "Cannot get namespaces"
+	}
+	responseString += fmt.Sprintf("You have %d namespaces ", len(namespaces.Items))
+
+	pods, err := getKubernetesPods()
+	if err != nil {
+		return "Cannot get pods"
+	}
+	responseString += fmt.Sprintf("with %d containers. ", len(pods.Items))
+
+	services, err := getKubernetesServices()
+	if err != nil {
+		return "Cannot get services"
+	}
+	responseString += fmt.Sprintf("There are %d public services", len(services.Items)) + " All systems are up and running!"
+
+	return responseString
+}
+
+func getKubernetesPods() (*v1.PodList, error) {
+	pods, err := clientSet.CoreV1().Pods("").List(metav1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	return pods, nil
+}
+
+func getKubernetesServices() (*v1.ServiceList, error) {
+	services, err := clientSet.CoreV1().Services("").List(metav1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	return services, nil
 }
