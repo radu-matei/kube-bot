@@ -17,7 +17,7 @@ server.get('/healthz', (request, response) => {
 server.listen(3978, () => console.log(`${server.name} listening to ${server.url}`));
 
 var bot = new builder.UniversalBot(connector, (session: builder.Session) => {
-    session.send(`Azure summer school!! I am ${os.hostname}. You said: ${session.message.text}`)
+    session.send(`I am ${os.hostname}. You said: ${session.message.text}`)
 });
 
 var recognizer = new builder.LuisRecognizer(process.env.LUIS_URI);
@@ -46,7 +46,7 @@ bot.dialog('GetClusterInfo', function (session) {
         path: '/get/cluster'
     };
 
-    var body = ''
+    var body = 'Hello! I am asking smart questions!'
     http.get(options, response => {
         response.on('data', data => {
             body += data
