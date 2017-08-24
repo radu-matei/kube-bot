@@ -64,7 +64,7 @@ func GetNamespaces() (string, error) {
 // GetClusterInformation return generic information about the cluster
 func GetClusterInformation() string {
 
-	var responseString = "Welcome to Azure Summer School, here is some information about your cluster: "
+	var responseString = "Hi, there, here is some information about your cluster: "
 
 	namespaces, err := clientSet.CoreV1().Namespaces().List(metav1.ListOptions{})
 	if err != nil {
