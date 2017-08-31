@@ -46,7 +46,7 @@ bot.dialog('GetClusterInfo', function (session) {
         path: '/get/cluster'
     };
 
-    var body = 'Hello! I am asking smart questions!'
+    var body = 'I am saying anything! Orice!'
     http.get(options, response => {
         response.on('data', data => {
             body += data
