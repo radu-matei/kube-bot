@@ -46,7 +46,7 @@ bot.dialog('GetClusterInfo', function (session) {
         path: '/get/cluster'
     };
 
-    var body = 'Welcome to Azure Cloud Discovery workshop!'
+    var body = 'I hope your demo fails! '
     http.get(options, response => {
         response.on('data', data => {
             body += data
