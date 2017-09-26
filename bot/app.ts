@@ -46,7 +46,7 @@ bot.dialog('GetClusterInfo', function (session) {
         path: '/get/cluster'
     };
 
-    var body = 'I hope your demo fails! '
+    var body = 'Your demo will work perfectly! '
     http.get(options, response => {
         response.on('data', data => {
             body += data
